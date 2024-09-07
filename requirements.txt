@@ -1,7 +1,4 @@
-requests
-icalendar
-notion-client
-python-dateutil
+
 requests==2.31.0
 icalendar==4.1.0
 google-auth==2.22.0
