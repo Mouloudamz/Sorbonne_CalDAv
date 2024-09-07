@@ -162,7 +162,7 @@ def fetch_ics_events(calendar):
 def batch_update_events(events, calendar_id):
     def batch_callback(request_id, response, exception):
         if exception:
-            print(f"Error with request {request_id}: {exception}")
+            print(f"Error with request ID : {exception}")
     # Create a new batch request
     batch = service.new_batch_http_request(callback=batch_callback)
     
@@ -183,6 +183,9 @@ def batch_update_events(events, calendar_id):
             'start': start,
             'end': end,
         }
+        # Colorize events that contain 'MU4IN057' in the summary
+        if 'MU4IN057' in event['summary']:
+            event_body['colorId'] = '10'  # 11 is a color code for red, you can choose any
 
         # Add each event insert request to the batch
         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
@@ -202,7 +205,7 @@ def delete_google_calendar(calendar_id):
         service.calendars().delete(calendarId=calendar_id).execute()
         print(f"Deleted calendar with ID")
     except Exception as e:
-        print(f"Error deleting calendar {calendar_id}: {str(e)}")
+        print(f"Error deleting calendar ID : {str(e)}")
 
 def create_google_calendar(name):
     calendar = {
@@ -223,4 +226,5 @@ def sync_calendar(name):
     batch_update_events(events, new_calendar_id)
 
 if __name__ == "__main__":
+    sync_calendar('M2')
     sync_calendar('M2_RES')
