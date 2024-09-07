@@ -1,9 +1,13 @@
 name: Run main.py periodically
 # Trigger the workflow periodically using a cron schedule
 on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ] 
 
-  schedule:
-  - cron: '0 8,11,12,22 * * *'
+  #schedule:
+  #- cron: '0 8,11,12,22 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
