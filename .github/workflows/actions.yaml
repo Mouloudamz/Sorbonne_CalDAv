@@ -36,8 +36,7 @@ jobs:
         run: |
           echo ${{ secrets.CYPRESS_CONFIG_JSON }} | base64 -d > token.json
       - name: Display credentials content
-        run: cat token.json    
-          
+        run: cat token.json     
       # Run the Python script (main.py)
       - name: Execute Python script
         #env:
