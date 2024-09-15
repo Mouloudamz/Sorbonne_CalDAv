@@ -184,7 +184,7 @@ def batch_update_events(events, calendar_id):
             'end': end,
         }
         # Colorize events that contain 'MU4IN057' in the summary
-        if 'MU4IN057' or 'MU4IN067' or 'MU5IN059' in event['summary']:
+        if 'MU5IN057' in event['summary']:
             event_body['colorId'] = '8'  # 11 is a color code for red, you can choose any
 
         # Add each event insert request to the batch
