@@ -185,9 +185,16 @@ def batch_update_events(events, calendar_id):
         }
         # Colorize events that contain 'MU4IN057' in the summary
         print(event['summary'])
-        if 'MU5IN057-GAN-CS' or 'MU5IN067-GAN-TME' or 'MU5IN059-SECRES-CS' or 'MU5IN059-SECRES-TME-G2' or 'MU5INOIP-OIP-Groupe 3' or 'MU5INOIP-OIP-Groupe 1' in event['summary']:
-            event_body['colorId'] = '8'  # 11 is a color code for red, you can choose any
-
+        if event['summary'] in [
+                'MU5IN057-GAN-CS',
+                'MU5IN067-GAN-TME',
+                'MU5IN059-SECRES-CS',
+                'MU5IN059-SECRES-TME-G2',
+                'MU5INOIP-OIP-Groupe 3',
+                'MU5INOIP-OIP-Groupe 1'
+            ]:
+            event_body['colorId'] = '11'  # 11 is a color code for red, you can choose any
+            event_body['transparency']= 'transparent'
         # Add each event insert request to the batch
         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
     
