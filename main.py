@@ -193,8 +193,10 @@ def batch_update_events(events, calendar_id):
                 'MU5INOIP-OIP-Groupe 3',
                 'MU5INOIP-OIP-Groupe 1'
             ]:
-            event_body['colorId'] = '11'  # 11 is a color code for red, you can choose any
-            event_body['transparency']= 'transparent'
+            event_body['colorId'] = '11'  # 11 is a color code for red
+            event_body['transparency'] = 'transparent'
+        else:
+            event_body['colorId'] = '1' 
         # Add each event insert request to the batch
         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
     
