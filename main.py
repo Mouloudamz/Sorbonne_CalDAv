@@ -191,25 +191,24 @@ def batch_update_events(events, calendar_id, name):
                         'MU5INOIP-OIP-Groupe 3',
                         'MU5INOIP-OIP-Groupe 1'
                     ]:
-                    
-                if 'MU5IN050-CELL'  in event['summary'] :
-                        event_body['colorId'] = '2'  # 11 is a color code for red
-                        batch.add(service.events().insert(calendarId=calendar_id, body=event_body))        
-                if 'MU5IN060-IOB'  in event['summary'] :
-                        event_body['colorId'] = '4'  # 11 is a color code for red
-                        batch.add(service.events().insert(calendarId=calendar_id, body=event_body)) 
-                if 'MU5IN054-MEPS'  in  event['summary']:
-                        event_body['colorId'] = '8'  # 11 is a color code for red
+                color_map = {
+                    'MU5IN050-CELL': '2',
+                    'MU5IN060-IOB': '4',
+                    'MU5IN054-MEPS': '8',
+                    'MU5IN056-NEVA': '9',
+                    'MU5IN053-ITQOS': '5',
+                    'MU5INOIP-OIP-Groupe 2': '3',
+                }  
+                assigned = False
+                for key, color_id in color_map.items():
+                    if key in event['summary']:
+                        event_body['colorId'] = color_id
                         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
-                if 'MU5IN056-NEVA' in  event['summary'] :
-                        event_body['colorId'] = '9'  # 11 is a color code for red
-                        batch.add(service.events().insert(calendarId=calendar_id, body=event_body)) 
-                if 'MU5IN053-ITQOS' in event['summary'] :
-                        event_body['colorId'] = '5'  # 11 is a color code for red
-                        batch.add(service.events().insert(calendarId=calendar_id, body=event_body))                  
-                if 'MU5INOIP-OIP-Groupe 2'  in event['summary'] :
-                        event_body['colorId'] = '3'  # 11 is a color code for red
-                        batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
+                        assigned = True
+                        break  
+                # If no matching color found, it won't be added to batch
+                if not assigned:
+                    continue    
         
         else:   
             batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
