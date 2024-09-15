@@ -159,7 +159,7 @@ def fetch_ics_events(calendar):
 
     return events
 
-def batch_update_events(events, calendar_id):
+def batch_update_events(events, calendar_id, name):
     def batch_callback(request_id, response, exception):
         if exception:
             print(f"Error with request ID : {exception}")
@@ -184,20 +184,20 @@ def batch_update_events(events, calendar_id):
             'end': end,
         }
         # Colorize events that contain 'MU4IN057' in the summary
-        print(event['summary'])
-        if event['summary'] in [
-                'MU5IN057-GAN-CS',
-                'MU5IN067-GAN-TME',
-                'MU5IN059-SECRES-CS',
-                'MU5IN059-SECRES-TME-G2',
-                'MU5INOIP-OIP-Groupe 3',
-                'MU5INOIP-OIP-Groupe 1'
-            ]:
-            event_body['colorId'] = '11'  # 11 is a color code for red
+        if name == 'M2_RES':
+            if event['summary'] in [
+                    'MU5IN057-GAN-CS',
+                    'MU5IN067-GAN-TME',
+                    'MU5IN059-SECRES-CS',
+                    'MU5IN059-SECRES-TME-G2',
+                    'MU5INOIP-OIP-Groupe 3',
+                    'MU5INOIP-OIP-Groupe 1'
+                ]:
+                event_body['colorId'] = '4'  # 11 is a color code for red
             event_body['transparency'] = 'transparent'
         else:
-            event_body['colorId'] = '1' 
-        # Add each event insert request to the batch
+            event_body['colorId'] = '7' 
+            # Add each event insert request to the batch
         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
     
     # Execute the batch request
@@ -233,8 +233,8 @@ def sync_calendar(name):
     if calendar_id:
         delete_google_calendar(calendar_id)
     new_calendar_id = create_google_calendar(name)
-    batch_update_events(events, new_calendar_id)
+    batch_update_events(events, new_calendar_id,name)
 
 if __name__ == "__main__":
-    sync_calendar('M2')
     sync_calendar('M2_RES')
+    sync_calendar('M2')
