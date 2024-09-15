@@ -192,34 +192,22 @@ def batch_update_events(events, calendar_id, name):
                         'MU5INOIP-OIP-Groupe 1'
                     ]:
                     
-                if event['summary']  in [
-                            'MU5IN050-CELL',  
-                        ]:
+                if 'MU5IN050-CELL'  in event['summary'] :
                         event_body['colorId'] = '2'  # 11 is a color code for red
                         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))        
-                if event['summary']  in [
-                            'MU5IN060-IOB',  
-                        ]:
+                if 'MU5IN060-IOB'  in event['summary'] :
                         event_body['colorId'] = '4'  # 11 is a color code for red
                         batch.add(service.events().insert(calendarId=calendar_id, body=event_body)) 
-                if event['summary']  in [
-                            'MU5IN054-MEPS',  
-                        ]:
+                if 'MU5IN054-MEPS'  in  event['summary']:
                         event_body['colorId'] = '8'  # 11 is a color code for red
                         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
-                if event['summary']  in [
-                            'MU5IN056-NEVA',  
-                        ]:
+                if 'MU5IN056-NEVA' in  event['summary'] :
                         event_body['colorId'] = '9'  # 11 is a color code for red
                         batch.add(service.events().insert(calendarId=calendar_id, body=event_body)) 
-                if event['summary']  in [
-                            'MU5IN053-ITQOS',  
-                        ]:
+                if 'MU5IN053-ITQOS' in event['summary'] :
                         event_body['colorId'] = '5'  # 11 is a color code for red
                         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))                  
-                if event['summary']  in [
-                            'MU5INOIP-OIP-Groupe 2',  
-                        ]:
+                if 'MU5INOIP-OIP-Groupe 2'  in event['summary'] :
                         event_body['colorId'] = '3'  # 11 is a color code for red
                         batch.add(service.events().insert(calendarId=calendar_id, body=event_body))
         
