@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "main" ] 
 
-  #schedule:
-  #- cron: '0 6,10,20 * * *'
+  schedule:
+  - cron: '0 6,10,20 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
